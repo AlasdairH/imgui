@@ -56,6 +56,9 @@
 #ifndef __gl3w_h_
 #define __gl3w_h_
 
+#include "Utils.h"
+#include <sstream>
+
 // Adapted from KHR/khrplatform.h to avoid including entire file.
 #ifndef __khrplatform_h_
 typedef          float         khronos_float_t;
@@ -699,6 +702,9 @@ static int parse_version(void)
         if (const char* gl_version = (const char*)glGetString(GL_VERSION))
             sscanf(gl_version, "%d.%d", &version.major, &version.minor);
     }
+    std::stringstream ss;
+    ss << "OpenGL Version: " << version.major << "." << version.minor;
+    OPR::log(ss.str());
     if (version.major < 2)
         return GL3W_ERROR_OPENGL_VERSION;
     return GL3W_OK;
